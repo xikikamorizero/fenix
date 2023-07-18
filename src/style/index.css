@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: var(--main);
+}
+
+:root{
+    --main: #000;
+    --secondary: '';
+    --white: #fff;
+    --logoColor:#ffeaeafb;
+    --shadow:#ce1111ea;
+    --header:#070606;
+    --colorNavbar:rgba(255, 16, 3, 0.714);
+}
