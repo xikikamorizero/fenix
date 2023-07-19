@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import { Burger } from "./Burger";
 import logo from "../../assets/logo.png";
 import icon from "../../assets/language.png";
+import burgerIcon from '../../assets/burger.svg';
 
 export const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [burger, setBurger] = useState(false);
   const [lang, setLang] = useState("ru");
   const [langState, setLangState] = useState(false);
   const { t, i18n } = useTranslation("global");
@@ -51,6 +54,14 @@ export const Header = () => {
           <Text href="#contacts">{t("header.navbar.2")}</Text>
           <Text href="#aboutUs">{t("header.navbar.3")}</Text>
         </Navbar>
+        <BurgerIcon
+              width={"40px"}
+              height={"40px"}
+              iconSize={"40px"}
+              icon={burgerIcon}
+              onClick={()=>{setBurger(true)}}
+            />
+        <Burger burger={burger} click={setBurger} /> 
       </HeaderStyle>
     </Container>
   );
@@ -104,6 +115,10 @@ const Navbar = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 5px;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 const Text = styled.a`
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
@@ -184,4 +199,25 @@ const LangContainer = styled.div<{ stateI: boolean }>`
 
   transition: all 0.3s linear;
   gap:2px;
+`;
+type PropsStyled = {
+  icon: string;
+  width: string;
+  height: string;
+  iconSize: string;
+  type?:string;
+};
+const BurgerIcon = styled.div`
+  display: ${({ type }: PropsStyled) => type? 'block':'none'};
+  min-width: ${({ width }: PropsStyled) => width};
+  min-height: ${({ height }: PropsStyled) => height};
+  background: url(${({ icon }: PropsStyled) => icon});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: ${({ iconSize }: PropsStyled) => iconSize};
+  cursor: pointer;
+
+  @media (max-width: 500px) {
+    display: ${({ type }: PropsStyled) => type? 'none': 'block'};
+  }
 `;
