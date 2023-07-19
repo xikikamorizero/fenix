@@ -58,7 +58,7 @@ const Name = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 31vw;
+  font-size: 26vw;
 
   -moz-user-select: none;
   -khtml-user-select: none;

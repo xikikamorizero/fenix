@@ -1,15 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import exit from "../../assets/exit.svg";
+import lang from "../../assets/language.png";
 
 type PropsType = {
   click: (a: boolean) => void;
   burger: boolean;
+  lang:string;
+  setLang:(a:string)=>void;
 };
 
 export const Burger = ({ ...props }: PropsType) => {
   const { t, i18n } = useTranslation("global");
+  const [langState, setLangState] = useState(false);
   return (
     <Container
       open={props.burger}
@@ -28,6 +32,32 @@ export const Burger = ({ ...props }: PropsType) => {
             width={"40px"}
             height={"40px"}
             iconSize={"40px"}
+            icon={lang}
+            onClick={() => {setLangState(!langState)}}
+          >
+            <LangContainer stateI={langState}>
+              <Language
+                state={props.lang === "ru"}
+                onClick={() => {
+                  props.setLang("ru");
+                }}
+              >
+                RU
+              </Language>
+              <Language
+                state={props.lang === "en"}
+                onClick={() => {
+                  props.setLang("en");
+                }}
+              >
+                EN
+              </Language>
+            </LangContainer>
+          </Icon>
+          <Icon
+            width={"40px"}
+            height={"40px"}
+            iconSize={"40px"}
             icon={exit}
             onClick={() => {
               props.click(false);
@@ -35,9 +65,30 @@ export const Burger = ({ ...props }: PropsType) => {
           />
         </HeaderBurger>
 
-        <TitleNavbar onClick={()=>{props.click(false)}} href="#main">{t("header.navbar.1")}</TitleNavbar>
-        <TitleNavbar onClick={()=>{props.click(false)}} href="#contacts">{t("header.navbar.2")}</TitleNavbar>
-        <TitleNavbar onClick={()=>{props.click(false)}} href="#aboutUs">{t("header.navbar.3")}</TitleNavbar>
+        <TitleNavbar
+          onClick={() => {
+            props.click(false);
+          }}
+          href="#main"
+        >
+          {t("header.navbar.1")}
+        </TitleNavbar>
+        <TitleNavbar
+          onClick={() => {
+            props.click(false);
+          }}
+          href="#contacts"
+        >
+          {t("header.navbar.2")}
+        </TitleNavbar>
+        <TitleNavbar
+          onClick={() => {
+            props.click(false);
+          }}
+          href="#aboutUs"
+        >
+          {t("header.navbar.3")}
+        </TitleNavbar>
       </BurgerContainer>
     </Container>
   );
@@ -98,6 +149,7 @@ const TitleNavbar = styled.a`
   :hover {
     color: var(--colorNavbar);
     border-bottom: 1px solid var(--colorNavbar);
+    filter: drop-shadow(2px 2px 1px var(--shadow));
   }
   :active {
     background-color: #47474795;
@@ -111,6 +163,7 @@ type PropsStyled = {
   iconSize: string;
 };
 const Icon = styled.div`
+  position: relative;
   min-width: ${({ width }: PropsStyled) => width};
   min-height: ${({ height }: PropsStyled) => height};
   background: url(${({ icon }: PropsStyled) => icon});
@@ -118,7 +171,12 @@ const Icon = styled.div`
   background-repeat: no-repeat;
   background-size: ${({ iconSize }: PropsStyled) => iconSize};
   cursor: pointer;
+
   border-radius: 50%;
+
+  :hover {
+    filter: drop-shadow(2px 2px 10px var(--shadow));
+  }
 
   :active {
     background-color: #47474795;
@@ -131,5 +189,50 @@ const HeaderBurger = styled.div`
   top: 0;
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+`;
+const Language = styled.div<{ state: boolean }>`
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  width: 34px;
+  height: 34px;
+  background-color: ${(props) => (props.state ? "var(--colorNavbar)" : "")};
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--white);
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+
+  cursor: pointer;
+  -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+
+  :hover {
+    background-color: var(--colorNavbar);
+  }
+`;
+const LangContainer = styled.div<{ stateI: boolean }>`
+  display: flex;
+  flex-direction: column;
+  width: 40px;
+  height: 78px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 40px;
+  background-color: #414040c8;
+  border-radius: 5px;
+  overflow: hidden;
+  max-height: ${(props) => (props.stateI ? "100px" : "0px")};
+
+  transition: all 0.3s linear;
+  gap:2px;
 `;

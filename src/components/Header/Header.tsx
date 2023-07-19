@@ -13,10 +13,13 @@ export const Header = () => {
   const [langState, setLangState] = useState(false);
   const { t, i18n } = useTranslation("global");
 
+useEffect(()=>{
+  i18n.changeLanguage(lang);
+},[lang])
+
   const Click=(language:string)=>{
     if(lang!==language){
       setLang(language);
-      i18n.changeLanguage(language);
     }
   }
 
@@ -61,7 +64,7 @@ export const Header = () => {
               icon={burgerIcon}
               onClick={()=>{setBurger(true)}}
             />
-        <Burger burger={burger} click={setBurger} /> 
+        <Burger burger={burger} click={setBurger} lang={lang} setLang={setLang} /> 
       </HeaderStyle>
     </Container>
   );
@@ -130,7 +133,7 @@ const Text = styled.a`
 
   text-decoration: none;
 
-  color: var(--colorNavbar);
+  color: var(--white);
 
   cursor: pointer;
 

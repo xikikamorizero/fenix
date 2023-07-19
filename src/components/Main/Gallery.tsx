@@ -31,7 +31,7 @@ const GalleryContainer = styled.div`
   width: 90%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 20px;
+  gap: 40px;
 
   @media (max-width: 450px) {
     grid-template-columns: 1fr;
