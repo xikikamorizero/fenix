@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import icon from "../../assets/language.png";
 
 export const Header = () => {
+  const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState("ru");
   const [langState, setLangState] = useState(false);
   const { t, i18n } = useTranslation("global");
@@ -15,9 +16,22 @@ export const Header = () => {
       i18n.changeLanguage(language);
     }
   }
-  console.log(lang)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 0;
+      setScrolled(isScrolled);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <Container>
+    <Container state={scrolled}>
       <HeaderStyle>
         <Icon icon={logo} />
         <Navbar>
@@ -42,7 +56,7 @@ export const Header = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{state:boolean}>`
   width: 100%;
   padding: 10px 0 10px 0;
   display: flex;
@@ -60,7 +74,7 @@ const Container = styled.div`
   -moz-box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
   box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
 
-  background-color: var(--header);
+  background-color:${(props)=>props.state? 'var(--headerA)' : ' var(--headerD)'};
 `;
 const HeaderStyle = styled.div`
   width: 90%;
