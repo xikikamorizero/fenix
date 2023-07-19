@@ -1,16 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { Gallery } from "./Gallery";
 import { AboutUs } from "../AboutUs/AboutUs";
+import { ItemInfo } from "../ItemInfo/ItemInfo";
 
 export const Main = () => {
+  const { t } = useTranslation("global");
   return (
-    <Container>
+    <Container id={'main'}>
       <Banner>
-        <Name>Fenix</Name>
+        <Name>{t('main.title')}</Name>
       </Banner>
       <Gallery />
       <AboutUs />
+      <ItemInfo />
     </Container>
   );
 };
@@ -21,6 +25,8 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    gap:100px;
+    padding-bottom: 100px;
 `
 const Banner = styled.div`
   width: 90%;

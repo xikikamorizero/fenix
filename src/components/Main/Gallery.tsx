@@ -1,17 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { Item } from "./Item";
 import image1 from "../../assets/img1.jpg";
 import image2 from "../../assets/img2.jpg";
 import image7 from "../../assets/img7.jpg";
 
 export const Gallery = () => {
+  const { t } = useTranslation("global");
   return (
     <Container>
       <GalleryContainer>
-        <Item title={"Поэзия"} text={"поэзия это круто"} image={image1} />
-        <Item title={"Музыка"} text={"музыка это круто"} image={image2} />
-        <Item title={"Вeчеринки"} text={"вечеринки это круто"} image={image7} />
+        <Item title={t("card.title.1")} text={t("card.text.1")} image={image1} />
+        <Item title={t("card.title.2")} text={t("card.text.2")} image={image2} />
+        <Item title={t("card.title.3")} text={t("card.text.3")} image={image7} />
       </GalleryContainer>
     </Container>
   );
@@ -28,7 +30,7 @@ const Container = styled.div`
 const GalleryContainer = styled.div`
   width: 90%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 20px;
 
   @media (max-width: 450px) {

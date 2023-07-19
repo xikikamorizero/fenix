@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { Main } from "./components/Main/Main";
@@ -10,9 +9,6 @@ function App() {
     <Container>
       <Header />
       <Center>
-        {/* <Routes>
-  
-        </Routes> */}
         <Main />
       </Center>
       <Footer />
