@@ -13,6 +13,18 @@ export const Header = () => {
   const [langState, setLangState] = useState(false);
   const { t, i18n } = useTranslation("global");
 
+  const handleBodyScroll = () => {
+    if (burger) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  };
+  
+  useEffect(() => {
+    handleBodyScroll();
+  }, [burger]);
+
 useEffect(()=>{
   i18n.changeLanguage(lang);
 },[lang])
